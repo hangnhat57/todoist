@@ -1,0 +1,9 @@
+{
+  "token": "**************",
+  "endpoint": "url",
+  "launch": "**************",
+  "project": "**************",
+  "mode": "**************",
+  "description": "",
+  "takeScreenshot": "onFailure"
+}

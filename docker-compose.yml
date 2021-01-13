@@ -1,0 +1,74 @@
+# To execute this docker-compose yml file use `docker-compose -f <file_name> up`
+# Add the `-d` flag at the end for detached execution
+version: '2.2'
+services:
+
+  hub:
+    image: elgalu/selenium
+    ports:
+      - 4444:4444
+    volumes:
+      - /dev/shm:/dev/shm
+    privileged: true
+    environment:
+      - SELENIUM_HUB_HOST=hub
+      - SELENIUM_HUB_PORT=4444
+      - GRID=true
+      - CHROME=false
+      - FIREFOX=false
+    mem_limit: 2g
+      
+  chrome:
+    image: elgalu/selenium
+    depends_on:
+      - hub
+    ports:
+      - 5900:25900
+      - 6080:26080
+    volumes:
+      - /dev/shm:/dev/shm
+    privileged: true
+    environment:
+      - NOVNC=true
+      - SELENIUM_HUB_HOST=hub
+      - SELENIUM_HUB_PORT=4444
+      - SELENIUM_NODE_HOST={{CONTAINER_IP}}
+      - SCREEN_WIDTH=3840
+      - SCREEN_HEIGHT=2160
+      - VIDEO=false
+      - GRID=false
+      - CHROME=true
+      - FIREFOX=false
+    mem_limit: 2g
+  firefox:
+    image: elgalu/selenium
+    depends_on:
+      - hub
+    ports:
+      - 5901:25900
+      - 6081:26080
+    volumes:
+      - /dev/shm:/dev/shm
+    privileged: true
+    environment:
+      - NOVNC=true
+      - SELENIUM_HUB_HOST=hub
+      - SELENIUM_HUB_PORT=4444
+      - SELENIUM_NODE_HOST={{CONTAINER_IP}}
+      - SCREEN_WIDTH=3840
+      - SCREEN_HEIGHT=2160
+      - VIDEO=false
+      - GRID=false
+      - CHROME=false
+      - FIREFOX=true
+    mem_limit: 2g
+  test:
+    build: helpers/dockers/test/
+    shm_size: '2gb'
+    volumes:
+      - .:/test
+      - /dev/shm:/dev/shm
+    privileged: true
+    depends_on:
+      - hub
+    mem_limit: 2g
