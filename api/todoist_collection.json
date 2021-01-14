@@ -32,7 +32,7 @@
 						"exec": [
 							"pm.environment.set(\"todoistToken\",\"bf4e2e6e45a2032d5afc05b1ac4676eb2388b515\")",
 							"",
-							"postman.setNextRequest(\"Create new todo item\");",
+							"postman.setNextRequest(\"Create new todo item with invalid due date\");",
 							""
 						],
 						"type": "text/javascript"
@@ -65,6 +65,142 @@
 			"response": []
 		},
 		{
+			"name": "Create new todo item with invalid due date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "caa6ca69-1efd-410d-a8ce-a658c2df3738",
+						"exec": [
+							"",
+							"pm.test(\"Create new todo item with invalid due date\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5112f46f-c669-406e-b3b2-7f830c4e8516",
+						"exec": [
+							"pm.environment.set(\"todoContent\",\"Test Content\")",
+							"pm.environment.set(\"todoDueDate\",\"tomorrow at 11:00\")",
+							"",
+							"postman.setNextRequest(\"Create new todo item with empty item\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Request-Id",
+						"value": "2F2255158043",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"project_id\": {{projectID}},\n    \"content\": \"{{todoContent}}\",\n    \"due_string\": \"hello due date\",\n    \"due_lang\": \"en\"\n}"
+				},
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/tasks",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new todo item with empty item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de5b5d70-8637-471a-bc7b-33a0586b4f45",
+						"exec": [
+							"",
+							"pm.test(\"Create new todo item with empty item\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b98b73f2-2df3-4e13-bca6-5057dd070894",
+						"exec": [
+							"pm.environment.set(\"todoContent\",\"Test Content\")",
+							"pm.environment.set(\"todoDueDate\",\"tomorrow at 11:00\")",
+							"postman.setNextRequest(\"Create new todo item\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Request-Id",
+						"value": "2F2255158043",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"project_id\": {{projectID}},\n    \"content\": \"\",\n    \"due_string\": \"{{todoDueDate}}\",\n    \"due_lang\": \"en\"\n}"
+				},
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/tasks",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create new todo item",
 			"event": [
 				{
@@ -91,7 +227,7 @@
 						"exec": [
 							"pm.environment.set(\"todoContent\",\"Test Content\")",
 							"pm.environment.set(\"todoDueDate\",\"tomorrow at 11:00\")",
-							"postman.setNextRequest(\"Edit todo item which Ive just created\");",
+							"postman.setNextRequest(\"Edit todo item which Ive just created with not exist id\");",
 							""
 						],
 						"type": "text/javascript"
@@ -131,6 +267,142 @@
 						"rest",
 						"v1",
 						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit todo item which Ive just created with not exist id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "975ab425-6d00-45a9-8173-9e14c1a60762",
+						"exec": [
+							"",
+							"pm.environment.set(\"todoContent\",\"Test Content edited\")",
+							"postman.setNextRequest(\"Edit todo item which Ive just created with empty content\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0dc1a363-5235-4b40-ba15-c402f23f380a",
+						"exec": [
+							"",
+							"pm.test(\"Edit task successfully\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"content\": \"\"}"
+				},
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/tasks/adsfasdf",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"tasks",
+						"adsfasdf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit todo item which Ive just created with empty content",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "72fe7383-8a6f-423d-a6e6-ff7e36e50934",
+						"exec": [
+							"",
+							"pm.environment.set(\"todoContent\",\"Test Content edited\")",
+							"postman.setNextRequest(\"Edit todo item which Ive just created\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9e0c257-8d44-4ba8-95fb-a9d7c80888b7",
+						"exec": [
+							"",
+							"pm.test(\"Edit task successfully\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"content\": \"\"}"
+				},
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/tasks/{{itemID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"tasks",
+						"{{itemID}}"
 					]
 				}
 			},
@@ -343,17 +615,17 @@
 	],
 	"variable": [
 		{
-			"id": "a59488e1-17c6-40e1-86ab-df4ebfeb1633",
+			"id": "136b1947-2b8a-4150-8d14-d2c1ef680273",
 			"key": "todoistToken",
 			"value": "bf4e2e6e45a2032d5afc05b1ac4676eb2388b515"
 		},
 		{
-			"id": "78374c2d-b725-4109-9836-71663cf7f405",
+			"id": "d06363f9-64fb-4591-929c-3693d6c01d2d",
 			"key": "todoContent",
 			"value": "test content"
 		},
 		{
-			"id": "d03a527f-89e2-4f9e-a26c-5abce11bfad3",
+			"id": "4415eff2-04f7-4fbd-b5f9-9dec4e40b91c",
 			"key": "todoDueDate",
 			"value": "tomorrow at 11:00"
 		}

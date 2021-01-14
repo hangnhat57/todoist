@@ -62,9 +62,10 @@ N/A
 | 2   |    User is not able to create a new todo item with invalid dueDate       | todoItemContent, todoItemDueDate(incorrect format (`hgiyfif`)      | SttCode: 400 / Res body: Date is invalid|          
 | 3   |    User is not able to create a new todo item with empty itemContent       | todoItemContent, todoItemContent = `empty`     | SttCode: 400 / Res body: Empty content|          
 | 4   |    User is able to edit an existed todo item       | todoItemContent, itemID which exist      | SttCode: 204 / item return with input data through get todoItem                 |          
-| 4   |    User is not able to edit an non-existed todo item       | todoItemContent, itemID which not exist     | SttCode: 400 / Res body: Item not found                |          
-| 5   |    User is able to close an existed todo item       |  itemID which exist     | SttCode: 204 / item will be not found with input itemID through get todoItem                 |          
-| 6   |    `User is able to close an non-existed todo item?`       |  `itemID`      | `? Prod behavior is different than my expect`               |          
+| 5   |    User is not able to edit an non-existed todo item       | todoItemContent, itemID which not exist     | SttCode: 400 / Res body: Item not found                |          
+| 6   |    User is not able to edit a todo item  with empty content     | todoItemContent=`empty`, itemID which  exist     | SttCode: 400 / Res body: Item not found                |          
+| 7   |    User is able to close an existed todo item       |  itemID which exist     | SttCode: 204 / item will be not found with input itemID through get todoItem                 |          
+| 8   |    `User is able to close an non-existed todo item?`       |  `itemID`      | `? Prod behavior is different than my expect`               |          
 
 ## End to End TEST SECTION
 
