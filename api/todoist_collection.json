@@ -1,0 +1,362 @@
+{
+	"info": {
+		"_postman_id": "e384da25-df6f-4dd5-b4fb-5f0ef2265c79",
+		"name": "Todoist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Project ID from Project List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bf98eba-45a9-44d8-a78f-d1ea0a74d269",
+						"exec": [
+							"let projects = JSON.parse(responseBody)",
+							"",
+							"projects.forEach((project)=>{",
+							"    if (project.name === \"TestProject\"){",
+							"        pm.environment.set(\"projectID\",project.id)",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c7791237-1aed-4ce5-91fe-d96bd2da0d23",
+						"exec": [
+							"pm.environment.set(\"todoistToken\",\"bf4e2e6e45a2032d5afc05b1ac4676eb2388b515\")",
+							"",
+							"postman.setNextRequest(\"Create new todo item\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/projects",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new todo item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "695f6f20-c328-4045-a7e8-f187e4d8f3de",
+						"exec": [
+							"",
+							"pm.test(\"Add new task\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    let response = JSON.parse(responseBody)",
+							"    pm.expect(response.content,pm.environment.get(\"todoContent\"))",
+							"    pm.expect(response.due.string,pm.environment.get(\"todoDueDate\"))",
+							"    pm.environment.set(\"itemID\",response.id)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e46a4082-b3a1-454d-92b9-68f0e4b4e5f1",
+						"exec": [
+							"pm.environment.set(\"todoContent\",\"Test Content\")",
+							"pm.environment.set(\"todoDueDate\",\"tomorrow at 11:00\")",
+							"postman.setNextRequest(\"Edit todo item which Ive just created\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Request-Id",
+						"value": "2F2255158043",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"project_id\": {{projectID}},\n    \"content\": \"{{todoContent}}\",\n    \"due_string\": \"{{todoDueDate}}\",\n    \"due_lang\": \"en\"\n}"
+				},
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/tasks",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit todo item which Ive just created",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "035f0a15-1325-4d26-ab95-42813fe07e2d",
+						"exec": [
+							"",
+							"pm.environment.set(\"todoContent\",\"Test Content edited\")",
+							"postman.setNextRequest(\"Get edited todo item for verifying edited data\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "168e837b-13c4-448e-b102-5ad1ba98e7fc",
+						"exec": [
+							"",
+							"pm.test(\"Edit task successfully\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"content\": \"{{todoContent}}\"}"
+				},
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/tasks/{{itemID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"tasks",
+						"{{itemID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get edited todo item for verifying edited data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58771e28-6be6-4cf2-ba61-9c2cdf8ff235",
+						"exec": [
+							"",
+							"pm.test(\"Get task data correct as edited\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    let response = JSON.parse(responseBody)",
+							"    pm.expect(response.content,pm.environment.get(\"todoContent\"))",
+							"    pm.expect(response.due.string,pm.environment.get(\"todoDueDate\"))",
+							"    pm.environment.set(\"itemID\",response.id)",
+							"});",
+							"postman.setNextRequest(\"Mark todo item as done\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/tasks/{{itemID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"tasks",
+						"{{itemID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mark todo item as done",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c2fa52f2-c725-4078-ad3e-406a75a152e5",
+						"exec": [
+							"",
+							"pm.test(\"Close task successfully\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"postman.setNextRequest(\"Check for close item already deleted\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/tasks/{{itemID}}/close",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"tasks",
+						"{{itemID}}",
+						"close"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check for close item already deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d786e76-e8a1-45ed-ade2-7a8fbfa13afb",
+						"exec": [
+							"",
+							"pm.test(\"Could not see close task anymore\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{todoistToken}}"
+					}
+				],
+				"url": {
+					"raw": "https://api.todoist.com/rest/v1/tasks/{{itemID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"todoist",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"tasks",
+						"{{itemID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "a59488e1-17c6-40e1-86ab-df4ebfeb1633",
+			"key": "todoistToken",
+			"value": "bf4e2e6e45a2032d5afc05b1ac4676eb2388b515"
+		},
+		{
+			"id": "78374c2d-b725-4109-9836-71663cf7f405",
+			"key": "todoContent",
+			"value": "test content"
+		},
+		{
+			"id": "d03a527f-89e2-4f9e-a26c-5abce11bfad3",
+			"key": "todoDueDate",
+			"value": "tomorrow at 11:00"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
