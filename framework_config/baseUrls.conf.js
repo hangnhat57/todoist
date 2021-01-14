@@ -2,6 +2,9 @@ exports.baseUrls = {
     dev: {
     },
     staging: {
-        uiUrl: "https://www.gobear.com/ph?x_session_type=UAT",
+        uiUrl: "https://todoist.com/",
+    },
+    prod: {
+        uiUrl: "https://todoist.com/",
     }
 };

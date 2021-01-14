@@ -16,6 +16,7 @@ services:
       - GRID=true
       - CHROME=false
       - FIREFOX=false
+      - TZ=Asia/Ho_Chi_Minh
     mem_limit: 2g
       
   chrome:
@@ -39,6 +40,7 @@ services:
       - GRID=false
       - CHROME=true
       - FIREFOX=false
+      - TZ=Asia/Ho_Chi_Minh
     mem_limit: 2g
   firefox:
     image: elgalu/selenium
@@ -61,6 +63,7 @@ services:
       - GRID=false
       - CHROME=false
       - FIREFOX=true
+      - TZ=Asia/Ho_Chi_Minh
     mem_limit: 2g
   test:
     build: helpers/dockers/test/
@@ -69,6 +72,8 @@ services:
       - .:/test
       - /dev/shm:/dev/shm
     privileged: true
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
     depends_on:
       - hub
     mem_limit: 2g

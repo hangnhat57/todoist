@@ -1,5 +1,5 @@
 import BasePage from "./basePage";
-import { browser, element, protractor } from "protractor/built/index";
+import {browser, element, protractor} from "protractor/built/index";
 import {
     sendKeys,
     click,
@@ -10,20 +10,22 @@ import {
     hover,
     sleep, waitForUrlMatch
 } from "../../helpers/browser_utilities";
-export class LoginPage extends BasePage{
+
+export class LoginPage extends BasePage {
     constructor() {
         super();
-        this.inputEmail  = element(by.xpath(`//input[@name="email"]`));
-        this.inputPassword  = element(by.xpath(`//input[@name="password"]`));
+        this.inputEmail = element(by.xpath(`//input[@name="email"]`));
+        this.inputPassword = element(by.xpath(`//input[@name="password"]`));
         this.btnLogin = element(by.xpath(`//button[contains(.,'Log in')]`));
     }
 
-    async login(email,password){
-        await sendKeys(this.inputEmail,email)
-        await sendKeys(this.inputPassword,password)
+    async login(email, password) {
+        await sendKeys(this.inputEmail, email)
+        await sendKeys(this.inputPassword, password)
         await click(this.btnLogin)
     }
-    async shouldLoginSuccess(){
+
+    async shouldLoginSuccess() {
         await waitForUrlMatch("app/#/today")
     }
 }

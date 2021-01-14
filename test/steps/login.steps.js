@@ -1,5 +1,5 @@
 import {Given, Then, When} from "cucumber"
-import {browser} from "protractor/built/index";
+import {browser} from "protractor";
 import {LoginPage} from "../pages/login.page";
 
 

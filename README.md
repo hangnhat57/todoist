@@ -1,4 +1,4 @@
-# Segment  Automated Testing Platform
+# UI  Automated Testing Platform
 
 **Descriptions**
 * Automated testing framework using
