@@ -16,7 +16,8 @@ There are my explanations for both tasks
     
 * **Test Framework**: 
   * UI Framework:
-    * **Why** : I choose NodeJS with protract as require from programing language ( Javascript ). Also, I already built a framework with protractor and familiar with it. 
+    * **Why** : I choose NodeJS with protract as require from programing language ( Javascript ). Also, I already built a framework with protractor and familiar with it.
+    * **Test Architect**: Detail in `ui/Readme.md`
     * **How to execute**: 
         * Please go to `ui` folder, then execute `run.sh` file to execute test. ( requires docker and docker compose installed )
   * API : 
