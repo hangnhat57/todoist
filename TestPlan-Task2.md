@@ -48,8 +48,14 @@
 | 1 | Todoist account already integrated with Google | Validate item with no specific due date hour | itemContent = “any”, itemDueDate = “Tomorrow” | GCalendar has a all day event with correct itemContent, Date |
 | 2 | Todoist account already integrated with Google | Validate item with specific due date hour | itemContent = “any”, itemDueDate = “Tomorrow 14:00” | GCalendar has a all day event with correct itemContent, Date, Start hour, duration base on integration setting |
 | 3 | Todoist account already integrated with Google | Validate item with no specific due date hour and custom duration | itemContent = “[90m]any”, itemDueDate = “Tomorrow” | "item created as itemContent = “any”, [90m] has been removed , GCalendar has a all day event with correct itemContent, Date" |
-| 4 | Todoist account already integrated with Google | Validate item with specific due date hour and custom duration | itemContent = “[90m]any”, itemDueDate = “Tomorrow 14:00” | "item created as itemContent = “any”, [90m] has been removed , GCalendar has a all day event with correct itemContent, Date, Start time . Duration in minute equal to custom duration from itemContent input" |
+| 4 | Todoist account already integrated with Google | Validate item with specific due date hour and custom duration | itemContent = “[90m]any”, itemDueDate = “Tomorrow 14:00” | "item created as itemContent = “any”, [90m] has been removed , GCalendar has an event with correct itemContent, Date, Start time . Duration in minute equal to custom duration from itemContent input" |
+| 5 | Todoist account already integrated with Google | Validate item with specific due date hour and custom duration | itemContent = “[0m]any”, itemDueDate = “Tomorrow 14:00” | "item created as itemContent = “any”, [0m] has been removed , GCalendar has an event with correct itemContent, Date, Start time . Duration in minute equal to custom duration from itemContent input ? ( 0 minutes ?) " |
 
+
+### Additional question: Which function we can't automation: 
+    * This Google Syncing feature, functions that we can't automated are : 
+        1. First integration set up between todoist <> Google
+        2. Remove then add another new google account to todoist
 
 
 

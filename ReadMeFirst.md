@@ -32,6 +32,7 @@ There are my explanations for both tasks
 * **Investigate application**:
     * This feature requires accessing to 3rd party app. Display / trigger reminder on 3rd party are not the thing we can do. Then we can validate them through GoogleSDK to make sure data store on their system
     * Logging in to Google API required open browser to authorized, this is not a good idea for automation on CI pipeline. To automatically authorized, we need a Google Service Account's token. I can't share my Company Google token here, so I can't write automation test case for this task
-    
+* **Question**: 
+  * Are we expect an event with 0 minute custom duration transform into 30 min instead of default duration setting? 
 * **Test cases**:
     * From assignment, story to test is adding an item with due date. So these test cases only for adding and verify, no edit/delete.  Besides, I assume relate-features ( syncing from specific project, item with no due date) are already tested.
