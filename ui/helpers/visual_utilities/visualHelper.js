@@ -1,6 +1,7 @@
-import { log, waitToBeDisplayed } from "../browser_utilities";
+import {log, waitToBeDisplayed} from "../browser_utilities";
 import * as blueharvest from "blue-harvest/dist/index";
 import Globals from "../../framework_config/cucumber_support/globals";
+
 const shell = require("shelljs");
 const globals = new Globals();
 const expect = globals.expect;

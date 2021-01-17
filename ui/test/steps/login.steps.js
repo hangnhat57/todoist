@@ -3,7 +3,6 @@ import {browser} from "protractor";
 import {LoginPage} from "../pages/login.page";
 
 
-
 Given(/^I am at login page$/, async function () {
     await browser.get("https://todoist.com/users/showlogin")
 });

@@ -1,5 +1,5 @@
-import { browser, by, element } from "protractor/built/index";
-import { DEBUG } from "./defaultValues";
+import {browser, by, element} from "protractor/built/index";
+import {DEBUG} from "./defaultValues";
 
 export function getElementFinder(target) {
   if (typeof target === "string") {

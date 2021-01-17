@@ -1,15 +1,6 @@
 import BasePage from "./basePage";
 import {browser, element, protractor} from "protractor/built/index";
-import {
-    sendKeys,
-    click,
-    waitToBeDisplayed,
-    waitForTextMatch,
-    waitForElementCountToBeLessThan,
-    waitForElementCountToBe,
-    hover,
-    sleep, waitForUrlMatch, waitToBeNotDisplayed
-} from "../../helpers/browser_utilities";
+import {click, sendKeys, sleep, waitToBeDisplayed, waitToBeNotDisplayed} from "../../helpers/browser_utilities";
 import dateformat from "dateformat";
 import Intercept from 'protractor-intercept';
 
@@ -83,8 +74,6 @@ export class DashboardPage extends BasePage {
     }
 
     async editTask(taskName, dueDate, newTaskName) {
-        console.log(taskName)
-        console.log(newTaskName)
         let task = await element(by.xpath(this.itemTask(taskName, dueDate)))
         await browser.actions().click(task, protractor.Button.RIGHT).perform();
         await waitToBeDisplayed(this.btnEditTask)

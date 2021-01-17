@@ -7,7 +7,7 @@ exports.browsers = {
         maxInstances: 3,
         chromeOptions: {
             args: [
-                // "--headless",
+                "--headless",
                 "ignore-certificate-errors",
                 "allow-running-insecure-content",
                 "--whitelisted-ips",

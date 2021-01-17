@@ -1,9 +1,7 @@
-import {Given, Then, When} from "cucumber"
-import {browser} from "protractor/built/index";
-import {LoginPage} from "../pages/login.page";
-const {waitForNextXHR} = require('protractor-xhr-plugin');
+import {Then, When} from "cucumber"
 import {DashboardPage} from "../pages/dashboard.page";
 import faker from "faker";
+
 
 
 var dueDate = new DashboardPage().getRandomDate();

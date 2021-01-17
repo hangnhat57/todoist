@@ -1,15 +1,6 @@
 import BasePage from "./basePage";
-import {browser, element, protractor} from "protractor/built/index";
-import {
-    sendKeys,
-    click,
-    waitToBeDisplayed,
-    waitForTextMatch,
-    waitForElementCountToBeLessThan,
-    waitForElementCountToBe,
-    hover,
-    sleep, waitForUrlMatch
-} from "../../helpers/browser_utilities";
+import {element} from "protractor/built/index";
+import {click, sendKeys, waitForUrlMatch} from "../../helpers/browser_utilities";
 
 export class LoginPage extends BasePage {
     constructor() {

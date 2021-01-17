@@ -1,7 +1,7 @@
-import { browser } from "protractor/built/index";
-import { getElementFinder } from "./browserUtils";
-import { waitToBeDisplayed } from "./browserWait";
-import { DEFAULT_RETRIES, DEFAULT_TIMEOUT } from "./defaultValues";
+import {browser} from "protractor/built/index";
+import {getElementFinder} from "./browserUtils";
+import {waitToBeDisplayed} from "./browserWait";
+import {DEFAULT_RETRIES, DEFAULT_TIMEOUT} from "./defaultValues";
 
 export function getText(
   target,

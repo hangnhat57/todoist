@@ -1,6 +1,6 @@
-import { browser } from "protractor/built/index";
-import { waitForUrlMatch, waitForWindowCount } from "./browserWait";
-import { click } from "./browserActions";
+import {browser} from "protractor/built/index";
+import {waitForUrlMatch, waitForWindowCount} from "./browserWait";
+import {click} from "./browserActions";
 
 export function scrollToTop() {
   return browser.executeScript("window.scrollTo(0,0);");

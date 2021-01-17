@@ -1,7 +1,7 @@
-import { browser, by, protractor } from "protractor/built/index";
-import { getElementFinder, sleep, log } from "./browserUtils";
+import {browser, by, protractor} from "protractor/built/index";
+import {getElementFinder, log, sleep} from "./browserUtils";
 import {waitToBeDisplayed, waitToBePresent} from "./browserWait";
-import { DEFAULT_RETRIES, DEFAULT_TIMEOUT } from "./defaultValues";
+import {DEFAULT_RETRIES, DEFAULT_TIMEOUT} from "./defaultValues";
 
 export function click(
   target,

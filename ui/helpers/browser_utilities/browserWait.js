@@ -1,6 +1,6 @@
-import { browser } from "protractor/built/index";
-import { getElementArrayFinder, getElementFinder, log } from "./browserUtils";
-import { DEFAULT_TIMEOUT } from "./defaultValues";
+import {browser} from "protractor/built/index";
+import {getElementArrayFinder, getElementFinder} from "./browserUtils";
+import {DEFAULT_TIMEOUT} from "./defaultValues";
 
 export function waitToBeNotPresent(target, timeout = DEFAULT_TIMEOUT) {
   const e = getElementFinder(target);

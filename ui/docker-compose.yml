@@ -4,7 +4,7 @@ version: '2.2'
 services:
 
   hub:
-    image: elgalu/selenium
+    image: elgalu/selenium:3.141.59-p31
     ports:
       - 4444:4444
     volumes:
@@ -20,7 +20,7 @@ services:
     mem_limit: 2g
       
   chrome:
-    image: elgalu/selenium
+    image: elgalu/selenium:3.141.59-p31
     depends_on:
       - hub
     ports:
@@ -43,7 +43,7 @@ services:
       - TZ=Asia/Ho_Chi_Minh
     mem_limit: 2g
   firefox:
-    image: elgalu/selenium
+    image: elgalu/selenium:3.141.59-p31
     depends_on:
       - hub
     ports:
